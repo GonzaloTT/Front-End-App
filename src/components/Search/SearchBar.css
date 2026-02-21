@@ -11,7 +11,7 @@
 }
 
 .search__heading {
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #94A3B8;
@@ -24,7 +24,7 @@
 }
 
 .search__label {
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
   color: #64748B;
   letter-spacing: 0.5px;
@@ -51,7 +51,7 @@
   align-items: center;
   gap: 12px;
   color: #64748B;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .search__divider::before,

@@ -1,6 +1,4 @@
 .footer {
-  background-color: #FFFFFF;
-  border-top: 1px solid #E5E7EB;
   padding: 24px;
 }
 
@@ -13,4 +11,21 @@
 .footer__text {
   font-size: 14px;
   color: #6B7280;
+}
+
+.footer__icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.footer__icon {
+  color: white;
+  font-size: 20px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.footer__icon:hover {
+  color: #00d084;
+  transform: scale(1.2);
 }
