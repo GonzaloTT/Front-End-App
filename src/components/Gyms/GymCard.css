@@ -1,0 +1,29 @@
+.gym-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 20px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.gym-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.gym-card__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.gym-card__rating {
+  font-size: 14px;
+  color: #2563EB;
+  margin-bottom: 6px;
+}
+
+.gym-card__address {
+  font-size: 14px;
+  color: #6B7280;
+}

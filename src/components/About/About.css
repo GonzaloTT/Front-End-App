@@ -1,0 +1,26 @@
+.about {
+  padding: 80px 24px;
+  background-color: #F5F7FA;
+}
+
+.about__container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #FFFFFF;
+  padding: 48px;
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.about__title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.about__text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #374151;
+}
