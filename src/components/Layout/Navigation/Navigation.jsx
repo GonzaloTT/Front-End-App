@@ -25,6 +25,17 @@ function Navigation() {
       >
         Gimnasios
       </NavLink>
+
+      <NavLink 
+        to="/about" 
+        className={({ isActive }) => 
+          isActive 
+            ? "navigation__link navigation__link--active"
+            : "navigation__link"
+        }
+      >
+        Acerca de
+      </NavLink>
     </nav>
   )
 }

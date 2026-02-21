@@ -5,6 +5,7 @@ import logo from "../../../../images/logo.png"
 function Header() {
   return (
     <header className="header">
+      <div className="header__overlay"></div>
       <div className="header__container">
          <div className="header__brand">
           <img src={logo} alt="Logo GymFinder" className="header__logo"  />
