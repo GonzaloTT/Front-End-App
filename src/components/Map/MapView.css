@@ -1,7 +1,68 @@
 .map-view {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  border-radius: 12px;
+}
+
+.map-view__header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.map-view__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.map-view__status {
+  font-size: 0.85rem;
+  color: #00d084;
+  letter-spacing: 1px;
+}
+
+.map-view__container {
+  flex: 1;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #E5E7EB;
-  background-color: #FFFFFF;
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.map-view__placeholder {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-view__grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+.map-view__text {
+  position: relative;
+  z-index: 1;
+  font-size: 1rem;
+  color: #cccccc;
+}
+
+@media screen and (max-width: 543px) {
+.map-view__header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+  }
 }

@@ -1,5 +1,7 @@
 .footer {
   padding: 24px;
+  position: relative;
+  overflow: hidden;
 }
 
 .footer__container {

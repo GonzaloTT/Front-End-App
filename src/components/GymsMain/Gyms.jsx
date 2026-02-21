@@ -1,17 +1,22 @@
 import MapView from '../Map/MapView'
 import GymCard from '../Gyms/GymCard'
+import './Gyms.css'
 
 function Gyms() {
   return (
-    <main className="main">
-      <div className="results__container">
-        <MapView />
+    <main className="gyms">
+      <div className="gyms__container">
+
+        <div className="gyms__map">
+          <MapView />
+        </div>
         
-        <section className="results__list">
+        <section className="gyms__list">
           <GymCard />
           <GymCard />
           <GymCard />
         </section>
+
       </div>
     </main>
   )

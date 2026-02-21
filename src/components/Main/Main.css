@@ -11,7 +11,7 @@
 
 .main__overlay {
   position: absolute;
-  bottom: -10px;
+  top: 550px;
   right: -200px;
   width: 600px;
   height: 600px;

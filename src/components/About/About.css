@@ -1,6 +1,5 @@
 .about {
-  min-height: 660px;
-  padding: 6rem 2rem;
+  padding: 2rem 2rem;
   background: #0F172A;
   color: #ffffff;
 }
@@ -65,4 +64,12 @@
 .about__card p {
   color: #cccccc;
   line-height: 1.6;
+}
+
+@media screen and (max-width: 543px) {
+  .about__title{
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+  }
 }
