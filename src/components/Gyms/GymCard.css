@@ -1,29 +1,44 @@
 .gym-card {
-  background-color: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  border-radius: 12px;
-  padding: 20px;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  padding: 1.2rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.25s ease;
+  cursor: pointer;
 }
 
 .gym-card:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  border-color: rgba(163, 230, 53, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.gym-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
 }
 
 .gym-card__title {
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 8px;
 }
 
 .gym-card__rating {
-  font-size: 14px;
-  color: #2563EB;
-  margin-bottom: 6px;
+  font-size: 0.9rem;
+  background: rgba(163, 230, 53, 0.15);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.gym-card__rating span {
+  color: #a3e635;
 }
 
 .gym-card__address {
-  font-size: 14px;
-  color: #6B7280;
+  font-size: 0.85rem;
+  color: #b3b3b3;
+  line-height: 1.4;
 }
