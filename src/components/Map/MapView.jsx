@@ -1,5 +1,5 @@
 import './MapView.css'
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow, MarkerClusterer } from "@react-google-maps/api"
 import { useEffect, useState, useContext } from "react"
 import { searchNearbyGyms } from "../../services/googleService"
 import { GymContext } from "../../contexts/GymContext"
@@ -8,8 +8,7 @@ const libraries = ["places"]
 
 function MapView() {
 
-  const [map, setMap] = useState(null)
-  const {gyms, setGyms} = useContext(GymContext)
+  const {gyms, setGyms, selectedGym, setSelectedGym, map, setMap} = useContext(GymContext)
   const [center, setCenter] = useState(null)
 
   const { isLoaded } = useJsApiLoader({
@@ -35,6 +34,15 @@ function MapView() {
       })
       .catch(console.error)
   }, [map, center])
+
+  useEffect(() => {
+    if (!map || !selectedGym) return
+
+    const lat = selectedGym.geometry.location.lat()
+    const lng = selectedGym.geometry.location.lng()
+
+    map.panTo({ lat, lng })
+  }, [selectedGym])
 
   return (
     <section className="map-view">
@@ -65,6 +73,17 @@ function MapView() {
                   lat: gym.geometry.location.lat(),
                   lng: gym.geometry.location.lng()
                 }}
+                onClick={() => setSelectedGym(gym)}
+                icon={
+                selectedGym?.place_id === gym.place_id
+                  ? "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                  : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                }
+                animation={
+                selectedGym?.place_id === gym.place_id
+                  ? window.google.maps.Animation.BOUNCE
+                  : null
+                }
               />
             ))}
           </GoogleMap>

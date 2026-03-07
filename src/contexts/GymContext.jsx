@@ -6,6 +6,7 @@ export function GymProvider({ children }) {
 
   const [gyms, setGyms] = useState([])
   const [selectedGym, setSelectedGym] = useState(null)
+  const [map, setMap] = useState(null)
 
   return (
     <GymContext.Provider
@@ -13,7 +14,9 @@ export function GymProvider({ children }) {
         gyms,
         setGyms,
         selectedGym,
-        setSelectedGym
+        setSelectedGym,
+        map,
+        setMap
       }}
     >
       {children}

@@ -42,3 +42,9 @@
   color: #b3b3b3;
   line-height: 1.4;
 }
+
+.gym-card--selected {
+  border: 2px solid #ff4d4f;
+  background: rgba(163, 230, 53, 0.4);
+  transform: scale(1.02);
+}
