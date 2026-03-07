@@ -17,10 +17,16 @@
   color: #94A3B8;
 }
 
+.search__group div[style*="width"] {
+  width: 100% !important;
+}
+
 .search__group {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .search__label {
@@ -31,8 +37,8 @@
 }
 
 .search__input {
-  width: 798px;
-  height: 24px;
+  width: 100%;
+  box-sizing: border-box;
   padding: 14px 16px;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.1);

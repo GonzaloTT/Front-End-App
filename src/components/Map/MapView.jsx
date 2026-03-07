@@ -1,7 +1,7 @@
 import './MapView.css'
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow, Circle } from "@react-google-maps/api"
 import { useEffect, useState, useContext } from "react"
-import { searchNearbyGyms } from "../../services/googleService"
+import { searchNearbyGyms } from "../../utils/googleService"
 import { GymContext } from "../../contexts/GymContext"
 import Preloader from "../UI/Preloader/Preloader"
 import ErrorMessage from "../UI/Error/ErrorMessage"
@@ -20,6 +20,18 @@ function MapView({ city, type }) {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries
   })
+
+  const mapOptions = {
+  fullscreenControl: true,
+  fullscreenControlOptions: {
+    position: window.google?.maps?.ControlPosition.RIGHT_BOTTOM, 
+  },
+  mapTypeControl: true,
+  mapTypeControlOptions: {
+    position: window.google?.maps?.ControlPosition.TOP_RIGHT, 
+  },
+  streetViewControl: false, 
+  };
 
     useEffect(() => {
     if (!city || !window.google) return
@@ -119,6 +131,7 @@ function MapView({ city, type }) {
             onLoad={(mapInstance) => setMap(mapInstance)}
             onDragEnd={() => setMapMoved(true)}
             onZoomChanged={() => setMapMoved(true)}
+            options={mapOptions}
           >
             {center && (
               <Marker
