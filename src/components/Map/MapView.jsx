@@ -3,6 +3,7 @@ import { GoogleMap, useJsApiLoader, Marker, InfoWindow, Circle } from "@react-go
 import { useEffect, useState, useContext } from "react"
 import { searchNearbyGyms } from "../../utils/googleService"
 import { GymContext } from "../../contexts/GymContext"
+import { saveFavoriteGym } from "../../services/favoriteService"
 import Preloader from "../UI/Preloader/Preloader"
 import ErrorMessage from "../UI/Error/ErrorMessage"
 
@@ -32,6 +33,20 @@ function MapView({ city, type }) {
   },
   streetViewControl: false, 
   };
+
+  const handleSaveFavorite = async (gym) => {
+  try {
+    setLoading(true)
+
+    await saveFavoriteGym(gym)
+
+    alert("Gym saved as favorite ⭐")
+  } catch (err) {
+    setError("Could not save favorite gym")
+  } finally {
+    setLoading(false)
+  }
+  }
 
     useEffect(() => {
     if (!city || !window.google) return
@@ -191,6 +206,9 @@ function MapView({ city, type }) {
                     <h3>{selectedGym.name}</h3>
                     <p>{selectedGym.vicinity}</p>
                     <p>⭐ {selectedGym.rating || "N/A"}</p>
+                    <button onClick={() => handleSaveFavorite(gyms)}>
+                      Save Favorite ⭐
+                    </button>
                   </div>
                 </InfoWindow>
               )}
