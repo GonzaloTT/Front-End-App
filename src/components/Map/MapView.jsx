@@ -3,6 +3,8 @@ import { GoogleMap, useJsApiLoader, Marker, InfoWindow, Circle } from "@react-go
 import { useEffect, useState, useContext } from "react"
 import { searchNearbyGyms } from "../../services/googleService"
 import { GymContext } from "../../contexts/GymContext"
+import Preloader from "../UI/Preloader/Preloader"
+import ErrorMessage from "../UI/Error/ErrorMessage"
 
 const libraries = ["places"]
 
@@ -11,6 +13,8 @@ function MapView({ city, type }) {
   const {gyms, setGyms, selectedGym, setSelectedGym, map, setMap} = useContext(GymContext)
   const [center, setCenter] = useState(null)
   const [mapMoved, setMapMoved] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -47,12 +51,21 @@ function MapView({ city, type }) {
 
    useEffect(() => {
     if (!map || !center) return
+
+    setLoading(true)
+    setError(null)
+
     searchNearbyGyms(map, center, type)
       .then(results => {
         setGyms(results)
+        setLoading(false)
       })
-      .catch(console.error)
-  }, [map, center, setGyms])
+      .catch(err => {
+        console.error(err)
+        setError("No se pudieron cargar los gimnasios.")
+        setLoading(false)
+      })
+  }, [map, center, type, setGyms])
 
   useEffect(() => {
     if (!map || !selectedGym) return
@@ -71,7 +84,7 @@ function MapView({ city, type }) {
     lng: center.lng()
   }
   try {
-    const results = await searchNearbyGyms(map, newCenter)
+    const results = await searchNearbyGyms(map, newCenter, type)
     setGyms(results)
     setMapMoved(false)
   } catch (error) {
@@ -89,6 +102,8 @@ function MapView({ city, type }) {
       </div>
 
       <div className="map-view__container">
+         {loading && <Preloader />}
+         {error && <ErrorMessage message={error} />}
          {!isLoaded || !center ? (
           <div className="map-view__placeholder">
             <div className="map-view__grid"></div>
@@ -121,7 +136,7 @@ function MapView({ city, type }) {
             {center && (
               <Circle
                 center={center}
-                radius={300}
+                radius={1000}
                 options={{
                   fillColor: "#4285F4",
                   fillOpacity: 0.2,
@@ -146,7 +161,7 @@ function MapView({ city, type }) {
                 }
                 animation={
                   selectedGym?.place_id === gym.place_id
-                  ? window.google.maps.Animation.BOUNCE
+                  ? window.google.maps.Animation.DROP
                   : null
                 }
               />
