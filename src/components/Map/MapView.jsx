@@ -1,5 +1,5 @@
 import './MapView.css'
-import { GoogleMap, useJsApiLoader, Marker, InfoWindow, MarkerClusterer } from "@react-google-maps/api"
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow, Circle } from "@react-google-maps/api"
 import { useEffect, useState, useContext } from "react"
 import { searchNearbyGyms } from "../../services/googleService"
 import { GymContext } from "../../contexts/GymContext"
@@ -10,6 +10,7 @@ function MapView() {
 
   const {gyms, setGyms, selectedGym, setSelectedGym, map, setMap} = useContext(GymContext)
   const [center, setCenter] = useState(null)
+  const [mapMoved, setMapMoved] = useState(false)
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -33,7 +34,7 @@ function MapView() {
         setGyms(results)
       })
       .catch(console.error)
-  }, [map, center])
+  }, [map, center, setGyms])
 
   useEffect(() => {
     if (!map || !selectedGym) return
@@ -42,7 +43,23 @@ function MapView() {
     const lng = selectedGym.geometry.location.lng()
 
     map.panTo({ lat, lng })
-  }, [selectedGym])
+  }, [map, selectedGym])
+
+  const searchThisArea = async () => {
+  if (!map) return
+  const center = map.getCenter()
+  const newCenter = {
+    lat: center.lat(),
+    lng: center.lng()
+  }
+  try {
+    const results = await searchNearbyGyms(map, newCenter)
+    setGyms(results)
+    setMapMoved(false)
+  } catch (error) {
+    console.error(error)
+  }
+  }
 
   return (
     <section className="map-view">
@@ -60,12 +77,42 @@ function MapView() {
             <p className="map-view__text">Detectando ubicación...</p>
           </div>
         ) : (
+
+          <>
           <GoogleMap
             center={center}
             zoom={14}
             mapContainerStyle={{ width: "100%", height: "100%" }}
             onLoad={(mapInstance) => setMap(mapInstance)}
+            onDragEnd={() => setMapMoved(true)}
+            onZoomChanged={() => setMapMoved(true)}
           >
+            {center && (
+              <Marker
+                position={center}
+                icon={{
+                  path: window.google.maps.SymbolPath.CIRCLE,
+                  scale: 8,
+                  fillColor: "#f44242",
+                  fillOpacity: 1,
+                  strokeColor: "white",
+                  strokeWeight: 2
+            }}
+            />
+            )}
+            {center && (
+              <Circle
+                center={center}
+                radius={300}
+                options={{
+                  fillColor: "#4285F4",
+                  fillOpacity: 0.2,
+                  strokeColor: "#4285F4",
+                  strokeOpacity: 0.5,
+                  strokeWeight: 1
+            }}
+             />
+            )}
             {gyms.map(gym => (
               <Marker
                 key={gym.place_id}
@@ -80,13 +127,38 @@ function MapView() {
                   : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
                 }
                 animation={
-                selectedGym?.place_id === gym.place_id
+                  selectedGym?.place_id === gym.place_id
                   ? window.google.maps.Animation.BOUNCE
                   : null
                 }
               />
             ))}
-          </GoogleMap>
+             {selectedGym && (
+                <InfoWindow
+                  position={{
+                    lat: selectedGym.geometry.location.lat(),
+                    lng: selectedGym.geometry.location.lng()
+                  }}
+                  onCloseClick={() => setSelectedGym(null)}
+                >
+                  <div className="map-info-window">
+                    <h3>{selectedGym.name}</h3>
+                    <p>{selectedGym.vicinity}</p>
+                    <p>⭐ {selectedGym.rating || "N/A"}</p>
+                  </div>
+                </InfoWindow>
+              )}
+          </GoogleMap >
+
+          {mapMoved && (
+            <button
+            className="map-view__search-btn"
+            onClick={searchThisArea}
+            >
+            Buscar en esta área
+            </button>
+          )}
+          </>
         )}
       </div>
     </section>
