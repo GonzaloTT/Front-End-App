@@ -1,13 +1,15 @@
 import './MapView.css'
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { searchNearbyGyms } from "../../services/googleService"
+import { GymContext } from "../../contexts/GymContext"
+
 const libraries = ["places"]
 
 function MapView() {
 
   const [map, setMap] = useState(null)
-  const [gyms, setGyms] = useState([])
+  const {gyms, setGyms} = useContext(GymContext)
   const [center, setCenter] = useState(null)
 
   const { isLoaded } = useJsApiLoader({

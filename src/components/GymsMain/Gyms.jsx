@@ -1,5 +1,5 @@
 import MapView from '../Map/MapView'
-import GymCard from '../Gyms/GymCard'
+import GymList from '../Gyms/GymList'
 import './Gyms.css'
 
 function Gyms() {
@@ -12,9 +12,7 @@ function Gyms() {
         </div>
         
         <section className="gyms__list">
-          <GymCard />
-          <GymCard />
-          <GymCard />
+          <GymList />
         </section>
 
       </div>

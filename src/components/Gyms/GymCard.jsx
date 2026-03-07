@@ -1,20 +1,23 @@
 import './GymCard.css'
 
-function GymCard() {
+function GymCard({ gym }) {
+
+  if (!gym) return null
+
   return (
     <article className="gym-card">
       <div className="gym-card__top">
         <h3 className="gym-card__title">
-          Power Gym Center
-        </h3>
+        {gym.name}
+      </h3>
 
-        <div className="gym-card__rating">
-          ★ <span>4.6</span>
-        </div>
+      <div className="gym-card__rating">
+        ★ {gym.rating || "N/A"}
+      </div>
       </div>
 
       <p className="gym-card__address">
-        Av. Constituyentes 123, Querétaro
+        {gym.vicinity}
       </p>
     </article>
   )
