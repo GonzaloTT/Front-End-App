@@ -6,7 +6,7 @@ import { GymContext } from "../../contexts/GymContext"
 
 const libraries = ["places"]
 
-function MapView() {
+function MapView({ city, type }) {
 
   const {gyms, setGyms, selectedGym, setSelectedGym, map, setMap} = useContext(GymContext)
   const [center, setCenter] = useState(null)
@@ -17,7 +17,25 @@ function MapView() {
     libraries
   })
 
+    useEffect(() => {
+    if (!city || !window.google) return
+    const geocoder = new window.google.maps.Geocoder()
+    geocoder.geocode({ address: city }, (results, status) => {
+    if (status === "OK") {
+      const location = results[0].geometry.location
+      const newCenter = {
+        lat: location.lat(),
+        lng: location.lng()
+      }
+      setCenter(newCenter)
+    } else {
+      console.error("Geocode error:", status)
+    }
+  })
+  }, [city])
+
    useEffect(() => {
+    if (city) return
     navigator.geolocation.getCurrentPosition((position) => {
       const userLocation = {
         lat: position.coords.latitude,
@@ -25,11 +43,11 @@ function MapView() {
       }
       setCenter(userLocation)
     })
-  }, [])
+  }, [city])
 
    useEffect(() => {
     if (!map || !center) return
-    searchNearbyGyms(map, center)
+    searchNearbyGyms(map, center, type)
       .then(results => {
         setGyms(results)
       })
