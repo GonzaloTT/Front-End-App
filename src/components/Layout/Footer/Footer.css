@@ -1,0 +1,33 @@
+.footer {
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer__text {
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.footer__icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.footer__icon {
+  color: white;
+  font-size: 20px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.footer__icon:hover {
+  color: #00d084;
+  transform: scale(1.2);
+}
