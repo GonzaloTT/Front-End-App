@@ -105,3 +105,7 @@ Mostrar reviews
 - Calcular rutas hasta el gimnasio
 - Guardar gimnasios favoritos
 - Cluster de marcadores
+
+## Pagina
+
+[GitHub Pages link](https://gonzalott.github.io)

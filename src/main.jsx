@@ -8,7 +8,7 @@ import { GymProvider } from './contexts/GymContext'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <GymProvider>
-    <BrowserRouter>
+    <BrowserRouter basename="/Front-End-App/">
     <App />
     </BrowserRouter>
     </GymProvider>
