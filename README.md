@@ -108,4 +108,4 @@ Mostrar reviews
 
 ## Pagina
 
-[GitHub Pages link](https://gonzalott.github.io)
+[GitHub Pages link](https://gonzalott.github.io/Front-End-App/)
